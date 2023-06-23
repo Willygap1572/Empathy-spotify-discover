@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Track Store</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container my-5">
+  <h1 class="text-center">Track Store<br>(Spring Boot & Elasticsearch Application)<br/>
+    <a href="/" class="btn btn-danger text-right">Go Home</a>
+  </h1>
+  <hr>
+  <h2>Save Track</h2>
+
+  <form action="#" th:action="@{/saveTrack}" th:object="${track}" method="POST">
+    <input type="text" th:field="*{track_id}" placeholder="Track Id" class="form-control mb-4 col-4">
+
+    <input type="text" th:field="*{track_name}" placeholder="Track Name" class="form-control mb-4 col-4">
+
+    <button type="submit" class="btn btn-info col-2"> Save Track</button>
+  </form>
+
+  <hr>
+
+  <a th:href="@{/}" class="link-success"> Back to Track List</a>
+</div>
+</body>
+
+</html>

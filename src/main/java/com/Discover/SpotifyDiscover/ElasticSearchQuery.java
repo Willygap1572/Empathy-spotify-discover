@@ -26,6 +26,7 @@ public class ElasticSearchQuery {
                 .id(track.getTrack_id())
                 .document(track)
         );
+        System.out.println("Response: " + track.getTrack_name());
         if(response.result().name().equals("Created")){
             return new StringBuilder("Document has been successfully created.").toString();
         }else if(response.result().name().equals("Updated")){

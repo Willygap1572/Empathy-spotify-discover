@@ -64,6 +64,79 @@ public class Track {
     @Field(type = FieldType.Float, name = "valence")
     private Float valence;
 
+
+    public void setTrack_id(String track_id) {
+        this.track_id = track_id;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setArtist_name(String artist_name) {
+        this.artist_name = artist_name;
+    }
+
+    public void setTrack_name(String track_name) {
+        this.track_name = track_name;
+    }
+
+    public void setPopularity(Integer popularity) {
+        this.popularity = popularity;
+    }
+
+    public void setAcousticness(Float acousticness) {
+        this.acousticness = acousticness;
+    }
+
+    public void setDanceability(Float danceability) {
+        this.danceability = danceability;
+    }
+
+    public void setDuration_ms(Integer duration_ms) {
+        this.duration_ms = duration_ms;
+    }
+
+    public void setEnergy(Float energy) {
+        this.energy = energy;
+    }
+
+    public void setInstrumentalness(Float instrumentalness) {
+        this.instrumentalness = instrumentalness;
+    }
+
+    public void setKey(Integer key) {
+        this.key = key;
+    }
+
+    public void setLiveness(Float liveness) {
+        this.liveness = liveness;
+    }
+
+    public void setLoudness(Float loudness) {
+        this.loudness = loudness;
+    }
+
+    public void setMode(Integer mode) {
+        this.mode = mode;
+    }
+
+    public void setSpeechiness(Float speechiness) {
+        this.speechiness = speechiness;
+    }
+
+    public void setTempo(Float tempo) {
+        this.tempo = tempo;
+    }
+
+    public void setTime_signature(Integer time_signature) {
+        this.time_signature = time_signature;
+    }
+
+    public void setValence(Float valence) {
+        this.valence = valence;
+    }
+
     public String getTrack_id() {
         return track_id;
     }

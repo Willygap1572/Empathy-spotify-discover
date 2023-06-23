@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Track Store</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+#tracks {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tracks td, #tracks th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tracks tr:nth-child(even){background-color: #f2f2f2;}
+
+#tracks tr:hover {background-color: #ddd;}
+
+#tracks th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="container my-5 ">
+    <h1 class="text-center">Track Store<br>(Spring Boot & Elasticsearch Application)<br/>
+    </h1>
+    <a th:href="@{/showNewTrackForm}" class="btn btn-primary m-3"> Add Track </a>
+    <a href="/" class="btn btn-danger text-right">Go Home</a>
+
+
+    <table id="tracks" border="1" class="table table-striped table-responsive-md">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(listTrackDocuments)}">
+            <td colspan="3" class="text-center">No Tracks Available</td>
+        </tr>
+        <tr th:each="trackDocument : ${listTrackDocuments}">
+            <td th:text="${trackDocument.track_id}"></td>
+            <td th:text="${trackDocument.track_name}"></td>
+            <td>
+                <a th:href="@{/showFormForUpdate/{track_id}(track_id=${trackDocument.track_id})}" class="btn btn-success">Update</a>
+                <a th:href="@{/deleteTrack/{track_id}(track_id=${trackDocument.track_id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
