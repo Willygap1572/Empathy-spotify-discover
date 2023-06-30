@@ -35,7 +35,48 @@ def get_auth_header(token):
     
     
 
+import random
+
+def getRandomSearch():
+    # Una lista de todos los caracteres que se pueden elegir.
+    characters = 'abcdefghijklmnopqrstuvwxyz'
     
-df = pd.read_csv('data/Spotify.csv')
-print(df.head(5))
-df.head(5)
+    # Obtiene un carácter aleatorio de la cadena de caracteres.
+    randomCharacter = random.choice(characters)
+    randomSearch = ''
+    
+    # Coloca el carácter comodín al principio, o al principio y al final, de forma aleatoria.
+    if random.randint(0, 1) == 0:
+        randomSearch = randomCharacter + '%'
+    else:
+        randomSearch = '%' + randomCharacter + '%'
+    
+    return randomSearch
+
+def search():
+    token = get_token()
+    auth_header = get_auth_header(token)
+    url = "https://api.spotify.com/v1/search"
+    randomSearch = getRandomSearch()
+    randomOffset = random.randint(0, 1000)
+    params = {
+        "q": randomSearch,
+        "type": "track",
+        "limit": 50,
+        "offset": randomOffset,
+    }
+    response = get(url, headers=auth_header, params=params)
+    json_response = json.loads(response.content)
+    return json_response
+
+#json to pandas dataframe
+def json_to_df(json_response):
+    tracks = json_response["tracks"]
+    items = tracks["items"]
+    df = pd.DataFrame(items)
+    return df
+
+
+json_response = search()
+df = json_to_df(json_response)
+print(df.head())
