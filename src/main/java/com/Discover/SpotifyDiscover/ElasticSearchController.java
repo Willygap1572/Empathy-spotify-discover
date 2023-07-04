@@ -21,14 +21,14 @@ public class ElasticSearchController {
     }
 
     @GetMapping("/getDocument")
-    public ResponseEntity<Object> getDocumentById(@RequestParam String trackId) throws IOException {
-        Track track =  elasticSearchQuery.getDocumentById(trackId);
+    public ResponseEntity<Object> getDocumentById(@RequestParam String id) throws IOException {
+        Track track =  elasticSearchQuery.getDocumentById(id);
         return new ResponseEntity<>(track, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteDocument")
-    public ResponseEntity<Object> deleteDocumentById(@RequestParam String trackId) throws IOException {
-        String response =  elasticSearchQuery.deleteDocumentById(trackId);
+    public ResponseEntity<Object> deleteDocumentById(@RequestParam String id) throws IOException {
+        String response =  elasticSearchQuery.deleteDocumentById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -30,5 +30,4 @@ public class SpotifyDiscoverConfiguration
         ElasticsearchClient client = new ElasticsearchClient(getElasticsearchTransport());
         return client;
     }
-
 }

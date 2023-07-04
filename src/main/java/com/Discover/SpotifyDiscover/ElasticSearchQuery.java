@@ -23,10 +23,10 @@ public class ElasticSearchQuery {
 
         IndexResponse response = elasticsearchClient.index(i -> i
                 .index(indexName)
-                .id(track.getTrack_id())
+                .id(track.getId())
                 .document(track)
         );
-        System.out.println("Response: " + track.getTrack_name());
+        System.out.println("Response: " + track.getName());
         if(response.result().name().equals("Created")){
             return new StringBuilder("Document has been successfully created.").toString();
         }else if(response.result().name().equals("Updated")){
@@ -35,17 +35,17 @@ public class ElasticSearchQuery {
         return new StringBuilder("Error while performing the operation.").toString();
     }
 
-    public Track getDocumentById(String trackId) throws IOException{
+    public Track getDocumentById(String id) throws IOException{
         Track track = null;
         GetResponse<Track> response = elasticsearchClient.get(g -> g
                         .index(indexName)
-                        .id(trackId),
+                        .id(id),
                 Track.class
         );
 
         if (response.found()) {
             track = response.source();
-            System.out.println("Track name " + track.getTrack_name());
+            System.out.println("Track name " + track.getName());
         } else {
             System.out.println ("Track not found");
         }
@@ -53,9 +53,9 @@ public class ElasticSearchQuery {
         return track;
     }
 
-    public String deleteDocumentById(String trackId) throws IOException {
+    public String deleteDocumentById(String id) throws IOException {
 
-        DeleteRequest request = DeleteRequest.of(d -> d.index(indexName).id(trackId));
+        DeleteRequest request = DeleteRequest.of(d -> d.index(indexName).id(id));
 
         DeleteResponse deleteResponse = elasticsearchClient.delete(request);
         if (Objects.nonNull(deleteResponse.result()) && !deleteResponse.result().name().equals("NotFound")) {

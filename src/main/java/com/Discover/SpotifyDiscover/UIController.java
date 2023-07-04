@@ -25,7 +25,7 @@ public class UIController {
 
     @PostMapping("/saveTrack")
     public String saveTrack(@ModelAttribute("track") Track track) throws IOException {
-        System.out.println("Track name: " + track.getTrack_name());
+        System.out.println("Track name: " + track.getName());
         elasticSearchQuery.createOrUpdateDocument(track);
         return "redirect:/home";
     }

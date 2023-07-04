@@ -58,11 +58,11 @@
             <td colspan="3" class="text-center">No Tracks Available</td>
         </tr>
         <tr th:each="trackDocument : ${listTrackDocuments}">
-            <td th:text="${trackDocument.track_id}"></td>
-            <td th:text="${trackDocument.track_name}"></td>
+            <td th:text="${trackDocument.id}"></td>
+            <td th:text="${trackDocument.name}"></td>
             <td>
-                <a th:href="@{/showFormForUpdate/{track_id}(track_id=${trackDocument.track_id})}" class="btn btn-success">Update</a>
-                <a th:href="@{/deleteTrack/{track_id}(track_id=${trackDocument.track_id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/showFormForUpdate/{id}(id=${trackDocument.id})}" class="btn btn-success">Update</a>
+                <a th:href="@{/deleteTrack/{id}(track_id=${trackDocument.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
