@@ -7,7 +7,7 @@ spring:
             client-id: fdee44c2af66463fa50a56f355895352
             client-secret: 0d3fdf1482574e1cb7c093346d7c23d8
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/
+            redirect-uri: http://localhost:8080/home
             scope: user-read-private,user-read-email
         provider:
           spotify:

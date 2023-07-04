@@ -1,6 +1,8 @@
 package com.Discover.SpotifyDiscover;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +15,10 @@ public class UIController {
     @Autowired
     private ElasticSearchQuery elasticSearchQuery;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String viewHomePage(Model model) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         model.addAttribute("listTrackDocuments",elasticSearchQuery.searchAllDocuments());
         return "index";
     }
@@ -23,7 +27,7 @@ public class UIController {
     public String saveTrack(@ModelAttribute("track") Track track) throws IOException {
         System.out.println("Track name: " + track.getTrack_name());
         elasticSearchQuery.createOrUpdateDocument(track);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @GetMapping("/showFormForUpdate/{id}")
@@ -46,6 +50,6 @@ public class UIController {
     public String deleteTrack(@PathVariable(value = "id") String id) throws IOException {
 
         this.elasticSearchQuery.deleteDocumentById(id);
-        return "redirect:/";
+        return "redirect:/home";
     }
 }
