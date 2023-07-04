@@ -15,7 +15,7 @@ public class UIController {
     @Autowired
     private ElasticSearchQuery elasticSearchQuery;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String viewHomePage(Model model) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -27,7 +27,7 @@ public class UIController {
     public String saveTrack(@ModelAttribute("track") Track track) throws IOException {
         System.out.println("Track name: " + track.getName());
         elasticSearchQuery.createOrUpdateDocument(track);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @GetMapping("/showFormForUpdate/{id}")
@@ -50,6 +50,6 @@ public class UIController {
     public String deleteTrack(@PathVariable(value = "id") String id) throws IOException {
 
         this.elasticSearchQuery.deleteDocumentById(id);
-        return "redirect:/home";
+        return "redirect:/";
     }
 }

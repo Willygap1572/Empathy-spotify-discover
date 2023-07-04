@@ -14,10 +14,9 @@ public class OAuth2Controller extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers( "/home", "/error", "/webjars/**").permitAll()
+                .antMatchers( "/","/home", "/error", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login();
     }
-
 }
