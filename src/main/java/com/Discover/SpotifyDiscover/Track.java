@@ -28,8 +28,8 @@ public class Track {
     @Field(type = FieldType.Integer, name = "column1")
     private Integer column1;
 
-    @Field(type = FieldType.Float, name = "duration_ms")
-    private Float duration_ms;
+    @Field(type = FieldType.Double, name = "duration_ms")
+    private Double duration_ms;
 
     @Field(type = FieldType.Boolean, name = "explicit")
     private Boolean explicit;
@@ -40,38 +40,38 @@ public class Track {
     @Field(type = FieldType.Text, name = "key")
     private String key;
 
-    @Field(type = FieldType.Float, name = "loudness")
-    private Float loudness;
+    @Field(type = FieldType.Double, name = "loudness")
+    private Double loudness;
 
     @Field(type = FieldType.Text, name = "popularity")
     private String popularity;
 
-    @Field(type = FieldType.Float, name = "danceability")
-    private Float danceability;
+    @Field(type = FieldType.Double, name = "danceability")
+    private Double danceability;
 
-    @Field(type = FieldType.Text, name = "energy")
-    private String energy;
+    @Field(type = FieldType.Double, name = "energy")
+    private Double energy;
 
     @Field(type = FieldType.Text, name = "mode")
     private String mode;
 
-    @Field(type = FieldType.Float, name = "speechiness")
-    private Float speechiness;
+    @Field(type = FieldType.Double, name = "speechiness")
+    private Double speechiness;
 
-    @Field(type = FieldType.Float, name = "acousticness")
-    private Float acousticness;
+    @Field(type = FieldType.Double, name = "acousticness")
+    private Double acousticness;
 
-    @Field(type = FieldType.Float, name = "instrumentalness")
-    private Float instrumentalness;
+    @Field(type = FieldType.Double, name = "instrumentalness")
+    private Double instrumentalness;
 
-    @Field(type = FieldType.Float, name = "liveness")
-    private Float liveness;
+    @Field(type = FieldType.Double, name = "liveness")
+    private Double liveness;
 
-    @Field(type = FieldType.Float, name = "valence")
-    private Float valence;
+    @Field(type = FieldType.Double, name = "valence")
+    private Double valence;
 
-    @Field(type = FieldType.Float, name = "tempo")
-    private Float tempo;
+    @Field(type = FieldType.Double, name = "tempo")
+    private Double tempo;
 
     public String getId() {
         return id;
@@ -105,11 +105,11 @@ public class Track {
         this.artists = artists;
     }
 
-    public Float getDuration_ms() {
+    public Double getDuration_ms() {
         return duration_ms;
     }
 
-    public void setDuration_ms(Float duration_ms) {
+    public void setDuration_ms(Double duration_ms) {
         this.duration_ms = duration_ms;
     }
 
@@ -137,11 +137,11 @@ public class Track {
         this.key = key;
     }
 
-    public Float getLoudness() {
+    public Double getLoudness() {
         return loudness;
     }
 
-    public void setLoudness(Float loudness) {
+    public void setLoudness(Double loudness) {
         this.loudness = loudness;
     }
 
@@ -153,19 +153,19 @@ public class Track {
         this.popularity = popularity;
     }
 
-    public Float getDanceability() {
+    public Double getDanceability() {
         return danceability;
     }
 
-    public void setDanceability(Float danceability) {
+    public void setDanceability(Double danceability) {
         this.danceability = danceability;
     }
 
-    public String getEnergy() {
+    public Double getEnergy() {
         return energy;
     }
 
-    public void setEnergy(String energy) {
+    public void setEnergy(Double energy) {
         this.energy = energy;
     }
 
@@ -177,51 +177,51 @@ public class Track {
         this.mode = mode;
     }
 
-    public Float getSpeechiness() {
+    public Double getSpeechiness() {
         return speechiness;
     }
 
-    public void setSpeechiness(Float speechiness) {
+    public void setSpeechiness(Double speechiness) {
         this.speechiness = speechiness;
     }
 
-    public Float getAcousticness() {
+    public Double getAcousticness() {
         return acousticness;
     }
 
-    public void setAcousticness(Float acousticness) {
+    public void setAcousticness(Double acousticness) {
         this.acousticness = acousticness;
     }
 
-    public Float getInstrumentalness() {
+    public Double getInstrumentalness() {
         return instrumentalness;
     }
 
-    public void setInstrumentalness(Float instrumentalness) {
+    public void setInstrumentalness(Double instrumentalness) {
         this.instrumentalness = instrumentalness;
     }
 
-    public Float getLiveness() {
+    public Double getLiveness() {
         return liveness;
     }
 
-    public void setLiveness(Float liveness) {
+    public void setLiveness(Double liveness) {
         this.liveness = liveness;
     }
 
-    public Float getValence() {
+    public Double getValence() {
         return valence;
     }
 
-    public void setValence(Float valence) {
+    public void setValence(Double valence) {
         this.valence = valence;
     }
 
-    public Float getTempo() {
+    public Double getTempo() {
         return tempo;
     }
 
-    public void setTempo(Float tempo) {
+    public void setTempo(Double tempo) {
         this.tempo = tempo;
     }
 }

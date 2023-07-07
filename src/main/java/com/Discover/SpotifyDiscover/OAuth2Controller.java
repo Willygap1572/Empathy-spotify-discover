@@ -19,7 +19,7 @@ public class OAuth2Controller extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/", "/top-tracks","/exchange", "/home", "/searchDocument", "/showNewTrackForm", "/saveTrack", "/showFormForUpdate/**", "/deleteTrack/**", "/error", "/oauth2/authorization/spotify", "/webjars/**").permitAll()
+                .antMatchers("/", "/top-tracks", "/audio-features", "/exchange", "/home", "/searchDocument", "/showNewTrackForm", "/saveTrack", "/showFormForUpdate/**", "/deleteTrack/**", "/error", "/oauth2/authorization/spotify", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login();
