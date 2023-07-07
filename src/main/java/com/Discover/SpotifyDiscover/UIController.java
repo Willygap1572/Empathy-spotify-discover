@@ -1,11 +1,19 @@
 package com.Discover.SpotifyDiscover;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+//Map
+import java.util.Map;
+import java.util.HashMap;
+//responseEntity
+import org.springframework.http.ResponseEntity;
+
 
 import java.io.IOException;
 
@@ -52,4 +60,7 @@ public class UIController {
         this.elasticSearchQuery.deleteDocumentById(id);
         return "redirect:/";
     }
+
+
+
 }

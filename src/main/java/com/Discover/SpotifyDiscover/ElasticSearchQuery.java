@@ -1,14 +1,24 @@
 package com.Discover.SpotifyDiscover;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
 import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.json.JsonData;
+import co.elastic.clients.util.ObjectBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
+
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 
 @Repository
 public class ElasticSearchQuery {
@@ -74,10 +84,92 @@ public class ElasticSearchQuery {
         List<Track> tracks = new ArrayList<>();
         for(Hit object : hits){
 
-            System.out.print(((Track) object.source()));
             tracks.add((Track) object.source());
 
         }
         return tracks;
+    }
+
+    public List<Track> searchFilteredDocuments(double danceability, double energy, double loudness, double speechiness, double acousticness, double instrumentalness, double liveness, double valence, double tempo, double tolerance) throws IOException {
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+
+        Query byDanceability = RangeQuery.of(r -> r
+                .field("danceability")
+                .gte(JsonData.of(danceability - tolerance))
+                //.lte(JsonData.of(danceability + tolerance))
+        )._toQuery();
+
+        Query byEnergy = RangeQuery.of(r -> r
+                .field("energy")
+                .gte(JsonData.of(energy - tolerance))
+                //.lte(JsonData.of(energy + tolerance))
+        )._toQuery();
+
+        Query byLoudness = RangeQuery.of(r -> r
+                .field("loudness")
+                .gte(JsonData.of(loudness - tolerance))
+                //.lte(JsonData.of(loudness + tolerance))
+        )._toQuery();
+
+        Query bySpeechiness = RangeQuery.of(r -> r
+                .field("speechiness")
+                .gte(JsonData.of(speechiness - tolerance))
+                //.lte(JsonData.of(speechiness + tolerance))
+        )._toQuery();
+
+        Query byAcousticness = RangeQuery.of(r -> r
+                .field("acousticness")
+                .gte(JsonData.of(acousticness - tolerance))
+                //.lte(JsonData.of(acousticness + tolerance))
+        )._toQuery();
+
+        Query byInstrumentalness = RangeQuery.of(r -> r
+                .field("instrumentalness")
+                .gte(JsonData.of(instrumentalness - tolerance))
+                //.lte(JsonData.of(instrumentalness + tolerance))
+        )._toQuery();
+
+        Query byLiveness = RangeQuery.of(r -> r
+                .field("liveness")
+                .gte(JsonData.of(liveness - tolerance))
+                //.lte(JsonData.of(liveness + tolerance))
+        )._toQuery();
+
+        Query byValence = RangeQuery.of(r -> r
+                .field("valence")
+                .gte(JsonData.of(valence - tolerance))
+                //.lte(JsonData.of(valence + tolerance))
+        )._toQuery();
+
+        Query byTempo = RangeQuery.of(r -> r
+                .field("tempo")
+                .gte(JsonData.of(tempo - tolerance))
+                //.lte(JsonData.of(tempo + tolerance))
+        )._toQuery();
+
+        SearchRequest searchRequest =  SearchRequest.of(s -> s.index(indexName)
+                .query(q -> q
+                        .bool(b -> b
+                                .must(byDanceability)
+                                .must(byEnergy)
+                                .must(byLoudness)
+                                .must(bySpeechiness)
+                                .must(byAcousticness)
+                                .must(byInstrumentalness)
+                                .must(byLiveness)
+                                .must(byValence)
+                                .must(byTempo)
+                        )));
+        SearchResponse searchResponse = elasticsearchClient.search(searchRequest, Track.class);
+        List<Hit> hits = searchResponse.hits().hits();
+        List<Track> tracks = new ArrayList<>();
+        for(Hit object : hits){
+            tracks.add((Track) object.source());
+        }
+        return tracks;
+    }
+
+    public String getIndexName() {
+        return indexName;
     }
 }

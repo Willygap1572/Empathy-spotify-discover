@@ -19,9 +19,9 @@
   <form action="#" th:action="@{/saveTrack}" th:object="${track}" method="POST">
 
     <!-- Add hidden form field to handle update -->
-    <input type="hidden" th:field="*{track_id}" />
+    <input type="hidden" th:field="*{id}" />
 
-    <input type="text" th:field="*{track_name}" placeholder="Track Name" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{name}" placeholder="Track Name" class="form-control mb-4 col-4">
 
 
     <button type="submit" class="btn btn-info col-2"> Update Track</button>
