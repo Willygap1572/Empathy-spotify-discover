@@ -23,20 +23,6 @@ public class UIController {
     @Autowired
     private ElasticSearchQuery elasticSearchQuery;
 
-    @GetMapping("/")
-    public String viewHomePage(Model model) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        model.addAttribute("listTrackDocuments",elasticSearchQuery.searchAllDocuments());
-        return "index";
-    }
-
-    @PostMapping("/saveTrack")
-    public String saveTrack(@ModelAttribute("track") Track track) throws IOException {
-        System.out.println("Track name: " + track.getName());
-        elasticSearchQuery.createOrUpdateDocument(track);
-        return "redirect:/";
-    }
 
     @GetMapping("/showFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) throws IOException {
@@ -60,7 +46,6 @@ public class UIController {
         this.elasticSearchQuery.deleteDocumentById(id);
         return "redirect:/";
     }
-
 
 
 }

@@ -1,7 +1,8 @@
 package com.Discover.SpotifyDiscover;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import org.springframework.http.ResponseEntity;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,14 +77,13 @@ public class TokenController {
     }
 
     @CrossOrigin
-    @GetMapping("/audio-features")
+    @GetMapping("/likelihood")
     public ResponseEntity<?> getAudioFeatures(@RequestHeader("Authorization") String authHeader) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         ResponseEntity<List<String>> idsResponse = (ResponseEntity<List<String>>) getTopTracks(authHeader);
         List<String> ids = idsResponse.getBody();
         String query = String.join(",", ids);
 
-        System.out.println(query);
         headers.add("Authorization", authHeader);
 
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
@@ -94,7 +91,6 @@ public class TokenController {
         String url = "https://api.spotify.com/v1/audio-features?ids=" + query;
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(responseEntity.getBody());
 
@@ -102,8 +98,8 @@ public class TokenController {
         JsonNode features = root.path("audio_features");
         for (JsonNode node : features) {
             Track track = new Track();
+            track.setDuration_ms(node.path("duration_ms").asInt());
             track.setId(node.path("id").asText());
-            track.setName(node.path("name").asText());
             track.setDanceability(node.path("danceability").asDouble());
             track.setEnergy(node.path("energy").asDouble());
             track.setLoudness(node.path("loudness").asDouble());
@@ -117,8 +113,8 @@ public class TokenController {
         }
         //calculate the mean of all tracks into a single track
         Track meanTrack = new Track();
-        meanTrack.setId("mean");
-        meanTrack.setName("mean");
+        meanTrack.setId("userProfile");
+        meanTrack.setDuration_ms(tracks.stream().mapToInt(Track::getDuration_ms).sum() / tracks.size());
         meanTrack.setDanceability(tracks.stream().mapToDouble(Track::getDanceability).average().getAsDouble());
         meanTrack.setEnergy(tracks.stream().mapToDouble(Track::getEnergy).average().getAsDouble());
         meanTrack.setLoudness(tracks.stream().mapToDouble(Track::getLoudness).average().getAsDouble());
@@ -131,5 +127,6 @@ public class TokenController {
 
         return ResponseEntity.ok(meanTrack);
     }
+
 }
 

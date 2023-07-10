@@ -8,7 +8,7 @@ spring:
             client-secret: 58edf3cc17df4309b19b8d8e57a3ee05
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8081/
-            scope: user-read-private,user-read-email,user-top-read
+            scope: user-read-private,user-read-email,user-top-read,playlist-modify-public,playlist-modify-private
 
         provider:
           spotify:

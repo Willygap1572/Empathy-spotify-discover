@@ -50,8 +50,6 @@
         <thead class="table-dark">
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -60,11 +58,6 @@
         </tr>
         <tr th:each="trackDocument : ${listTrackDocuments}">
             <td th:text="${trackDocument.id}"></td>
-            <td th:text="${trackDocument.name}"></td>
-            <td>
-                <a th:href="@{/showFormForUpdate/{id}(id=${trackDocument.id})}" class="btn btn-success">Update</a>
-                <a th:href="@{/deleteTrack/{id}(track_id=${trackDocument.id})}" class="btn btn-danger">Delete</a>
-            </td>
         </tr>
         </tbody>
     </table>

@@ -1,4 +1,5 @@
 package com.Discover.SpotifyDiscover;
+
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
@@ -9,8 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SpotifyDiscoverConfiguration
-{
+public class SpotifyDiscoverConfiguration {
     @Bean
     public RestClient getRestClient() {
         RestClient restClient = RestClient.builder(
@@ -19,14 +19,14 @@ public class SpotifyDiscoverConfiguration
     }
 
     @Bean
-    public  ElasticsearchTransport getElasticsearchTransport() {
+    public ElasticsearchTransport getElasticsearchTransport() {
         return new RestClientTransport(
                 getRestClient(), new JacksonJsonpMapper());
     }
 
 
     @Bean
-    public ElasticsearchClient getElasticsearchClient(){
+    public ElasticsearchClient getElasticsearchClient() {
         ElasticsearchClient client = new ElasticsearchClient(getElasticsearchTransport());
         return client;
     }

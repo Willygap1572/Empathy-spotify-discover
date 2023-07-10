@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
+
 @Document(indexName = "tracks")
 public class Track {
 
@@ -13,38 +14,23 @@ public class Track {
     @Field(type = FieldType.Text, name = "id")
     private String id;
 
-    /*same with 'album', 'artists', 'duration_ms', 'explicit',
-       'name', 'popularity', 'danceability', 'energy', 'key', 'loudness',
-       'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness',
-       'valence', 'tempo*/
-
-    @Field(type = FieldType.Text, name = "album")
-    private String album;
-
-    @Field(type = FieldType.Text, name = "artists")
-    private String artists;
-
-    /*column1*/
     @Field(type = FieldType.Integer, name = "column1")
     private Integer column1;
 
-    @Field(type = FieldType.Double, name = "duration_ms")
-    private Double duration_ms;
+    @Field(type = FieldType.Integer, name = "duration_ms")
+    private int duration_ms;
 
     @Field(type = FieldType.Boolean, name = "explicit")
     private Boolean explicit;
 
-    @Field(type = FieldType.Text, name = "name")
-    private String name;
-
-    @Field(type = FieldType.Text, name = "key")
-    private String key;
+    @Field(type = FieldType.Integer, name = "key")
+    private int key;
 
     @Field(type = FieldType.Double, name = "loudness")
     private Double loudness;
 
-    @Field(type = FieldType.Text, name = "popularity")
-    private String popularity;
+    @Field(type = FieldType.Integer, name = "popularity")
+    private int popularity;
 
     @Field(type = FieldType.Double, name = "danceability")
     private Double danceability;
@@ -52,8 +38,8 @@ public class Track {
     @Field(type = FieldType.Double, name = "energy")
     private Double energy;
 
-    @Field(type = FieldType.Text, name = "mode")
-    private String mode;
+    @Field(type = FieldType.Integer, name = "mode")
+    private int mode;
 
     @Field(type = FieldType.Double, name = "speechiness")
     private Double speechiness;
@@ -89,27 +75,11 @@ public class Track {
         this.column1 = column1;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public String getArtists() {
-        return artists;
-    }
-
-    public void setArtists(String artists) {
-        this.artists = artists;
-    }
-
-    public Double getDuration_ms() {
+    public int getDuration_ms() {
         return duration_ms;
     }
 
-    public void setDuration_ms(Double duration_ms) {
+    public void setDuration_ms(int duration_ms) {
         this.duration_ms = duration_ms;
     }
 
@@ -121,19 +91,11 @@ public class Track {
         this.explicit = explicit;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getKey() {
+    public int getKey() {
         return key;
     }
 
-    public void setKey(String key) {
+    public void setKey(int key) {
         this.key = key;
     }
 
@@ -145,11 +107,11 @@ public class Track {
         this.loudness = loudness;
     }
 
-    public String getPopularity() {
+    public int getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(String popularity) {
+    public void setPopularity(int popularity) {
         this.popularity = popularity;
     }
 
@@ -169,11 +131,11 @@ public class Track {
         this.energy = energy;
     }
 
-    public String getMode() {
+    public int getMode() {
         return mode;
     }
 
-    public void setMode(String mode) {
+    public void setMode(int mode) {
         this.mode = mode;
     }
 
