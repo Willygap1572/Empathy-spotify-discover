@@ -128,5 +128,51 @@ public class TokenController {
         return ResponseEntity.ok(meanTrack);
     }
 
+    @GetMapping("/user-playlists")
+    public ResponseEntity<?> getPlaylists(@RequestHeader("Authorization") String authHeader) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", authHeader);
+
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        String url = "https://api.spotify.com/v1/me/playlists?limit=50";
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(responseEntity.getBody());
+
+        List<String> playlistsids = new ArrayList<>();
+        JsonNode playlists = root.path("items");
+        for (JsonNode node : playlists) {
+            String playlistid = node.path("id").asText();
+            playlistsids.add(playlistid);
+        }
+
+        return ResponseEntity.ok(playlistsids);
+    }
+
+    @GetMapping("/playlist-details/{id-playlist}")
+    public ResponseEntity<?> getPlaylistDetails(@RequestHeader("Authorization") String authHeader, @PathVariable("id-playlist") String id) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", authHeader);
+
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        String url = "https://api.spotify.com/v1/" + id;
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(responseEntity.getBody());
+
+        List<String> playlistTracks = new ArrayList<>();
+
+        JsonNode tracksInfo = root.path("tracks");
+        JsonNode tracks = tracksInfo.path("items");
+        for (JsonNode node : tracks) {
+            String playlistTrack = node.path("id").asText();
+            playlistTracks.add(playlistTrack);
+        }
+        return ResponseEntity.ok(playlistTracks);
+    }
 }
 
