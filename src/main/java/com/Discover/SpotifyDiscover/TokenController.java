@@ -152,13 +152,13 @@ public class TokenController {
     }
 
     @GetMapping("/playlist-details/{id-playlist}")
-    public ResponseEntity<?> getPlaylistDetails(@RequestHeader("Authorization") String authHeader, @PathVariable("id-playlist") String id) throws IOException {
+    public ResponseEntity<?> getPlaylistDetails(@RequestHeader("Authorization") String authHeader, @PathVariable("id-playlist") String idPlaylist) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", authHeader);
 
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        String url = "https://api.spotify.com/v1/" + id;
+        String url = "https://api.spotify.com/v1/playlists/" + idPlaylist;
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -169,10 +169,23 @@ public class TokenController {
         JsonNode tracksInfo = root.path("tracks");
         JsonNode tracks = tracksInfo.path("items");
         for (JsonNode node : tracks) {
-            String playlistTrack = node.path("id").asText();
+            String playlistTrack = node.path("track").path("id").asText();
             playlistTracks.add(playlistTrack);
         }
         return ResponseEntity.ok(playlistTracks);
+    }
+
+    @DeleteMapping("/unfollow-playlist/{id-playlist}")
+    public ResponseEntity<?> unfollowPlaylist(@RequestHeader("Authorization") String authHeader, @PathVariable("id-playlist") String idPlaylist) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", authHeader);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        String url = "https://api.spotify.com/v1/playlists/" + idPlaylist + "/followers";
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, entity, String.class);
+
+        return ResponseEntity.ok(responseEntity.getStatusCode().toString());
     }
 }
 
