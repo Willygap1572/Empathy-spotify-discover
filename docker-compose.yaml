@@ -1,7 +1,19 @@
-
-#ALL CREDIT OF THIS FILE TO TIBERIUS
+version: '3'
 
 services:
+  spotifydiscover:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - CLIENT_ID=c07e46d491534186b504d1d5189fcd0b
+      - CLIENT_SECRET=58edf3cc17df4309b19b8d8e57a3ee05
+      - SPRING_DATASOURCE_URL=http://elasticsearch:9200
+    ports:
+      - 8080:8080
+    depends_on:
+      - elasticsearch
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
     environment:
@@ -15,10 +27,10 @@ services:
       test: [ "CMD", "curl", "-u", "elastic:searchPathRules", "-f", "localhost:9200" ]
       interval: 30s
       retries: 10
+
   kibana:
     image: docker.elastic.co/kibana/kibana:7.17.2
     environment:
       ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
     ports:
       - 5601:5601
-

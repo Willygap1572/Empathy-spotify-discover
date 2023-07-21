@@ -14,7 +14,7 @@ public class SpotifyDiscoverConfiguration {
     @Bean
     public RestClient getRestClient() {
         RestClient restClient = RestClient.builder(
-                new HttpHost("localhost", 9200)).build();
+                new HttpHost("elasticsearch", 9200)).build();
         return restClient;
     }
 
@@ -23,7 +23,6 @@ public class SpotifyDiscoverConfiguration {
         return new RestClientTransport(
                 getRestClient(), new JacksonJsonpMapper());
     }
-
 
     @Bean
     public ElasticsearchClient getElasticsearchClient() {

@@ -4,8 +4,8 @@ spring:
       client:
         registration:
           spotify:
-            client-id: c07e46d491534186b504d1d5189fcd0b
-            client-secret: 58edf3cc17df4309b19b8d8e57a3ee05
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8081/
             scope: user-read-private,user-read-email,user-top-read,playlist-modify-public,playlist-modify-private,playlist-read-private,playlist-read-collaborative

@@ -187,5 +187,18 @@ public class TokenController {
 
         return ResponseEntity.ok(responseEntity.getStatusCode().toString());
     }
+
+    @DeleteMapping("/update-playlist/{playlistId}/{trackId}")
+    public ResponseEntity<?> updatePlaylist(@RequestHeader("Authorization") String authHeader, @PathVariable("playlistId") String playlistId, @PathVariable("trackId") String trackId) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", authHeader);
+        headers.add("Content-Type", "application/json");
+        String body = "{\"tracks\":[{\"uri\":\"spotify:track:" + trackId + "\"}]}";
+        HttpEntity<String> entity = new HttpEntity<>(body, headers);
+        String url = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, entity, String.class);
+
+        return ResponseEntity.ok(responseEntity.getStatusCode().toString());
+    }
 }
 
